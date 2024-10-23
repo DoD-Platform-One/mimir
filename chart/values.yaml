@@ -1,0 +1,47 @@
+# Settings for mimir-distributed chart
+# -- See https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yamlfor available values.
+# @default -- Our overrides are defined in charts/values.yaml file.
+mimir-distributed:
+  cluster:
+    name: bigbang
+
+  global:
+    image:
+      registry: "registry1.dso.mil"
+      pullSecrets:
+      - name: private-registry
+    podSecurityContext:
+      runAsUser: 473
+      runAsGroup: 473
+      fsGroup: 473
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+
+  mimir:
+    image:
+      repository: "ironbank/opensource/grafana/mimir"
+      tag: "v1.3.1"
+    configReloader:
+      image:
+        repository: "ironbank/opensource/jimmidyson/configmap-reload"
+        tag: "v0.12.0"
+      securityContext:
+        capabilities:
+          drop:
+          - ALL
+
+  gateway:
+    securityContext:
+      runAsUser: 473
+      runAsGroup: 473
+      fsGroup: 473
+  
+  minio:
+    makeBucketJob:
+      securityContext:
+        enabled: true
+        runAsUser: 473
+        runAsGroup: 473
+        fsGroup: 473
+        runAsNonRoot: true
