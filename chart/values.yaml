@@ -1,20 +1,60 @@
 # Settings for mimir-distributed chart
-# -- See https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yamlfor available values.
+# -- See https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml for available values.
 # @default -- Our overrides are defined in charts/values.yaml file.
 mimir-distributed:
-  cluster:
-    name: bigbang
+  image:
+    repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
+    tag: 2.14.0
+    pullSecrets:
+    - private-registry
+  
   mimir:
     structuredConfig:
       blocks_storage:
         backend: filesystem
 
+  memcached:
+    image: 
+      repository: registry1.dso.mil/ironbank/opensource/memcached/memcached
+      tag: 1.6.31
+  
+  # Placeholder when image available in IB
+  memcachedExporter:
+    enabled: false
+  #   image: 
+  #     repository: registry1.dso.mil/ironbank/opensource/ #TODO
+  #     tag: 
+
+  rollout_operator:
+    image:
+      repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator 
+      tag: v0.20.0
+    imagePullSecrets:
+    - name: private-registry
+    
   minio:
     enabled: false
   grafanaAgent:
     enabled: false
 
-  global:
+  nginx: 
     image:
-      pullSecrets:
-      - name: private-registry
+      registry: registry1.dso.mil
+      repository: ironbank/opensource/nginx/nginx
+      tag: 1.27.2
+
+  # Placeholder when image available in IB
+  enterprise:
+    enabled: false
+  #   image: 
+  #     repository: registry1.dso.mil/ironbank/opensource/ #TODO
+  #     tag: 
+  #     pullPolicy:
+  
+  gateway:
+    enabledNonEnterprise: true
+    nginx:
+      image:
+        registry: registry1.dso.mil
+        repository: ironbank/opensource/nginx/nginx
+        tag: 1.27.2
