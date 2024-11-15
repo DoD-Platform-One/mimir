@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-kube-dns-{{ .Release.Name }}
-  namespace: {{ .Release.Namespace }}
+  name: allow-dns-lookups-mimir
 spec:
-  podSelector: {}
+  matchExpressions:
+      - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
   policyTypes:
   - Egress
   egress:
@@ -13,8 +13,12 @@ spec:
     - namespaceSelector: {}
     ports:
     - port: 53
+      protocol: TCP
+    - port: 53
       protocol: UDP
-    {{- if .Values.openshift }}  
+    {{- if .Values.openshift }}
+    - port: 5353
+      protocol: TCP
     - port: 5353
       protocol: UDP
     {{- end }}

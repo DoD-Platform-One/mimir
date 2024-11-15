@@ -68,6 +68,8 @@ networkPolicies:
   controlPlaneCidr: 0.0.0.0/0
   additionalPolicies: []
 
+  egress: {}
+
 
 istio:
   # -- Toggle istio configuration
