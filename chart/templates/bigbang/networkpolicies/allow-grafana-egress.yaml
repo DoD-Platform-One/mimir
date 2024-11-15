@@ -1,0 +1,26 @@
+{{- if .Values.networkPolicies.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-mimir-egress-grafana
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchExpressions:
+      - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        {{- $defaultNSSelector := dict "matchLabels" (dict "app.kubernetes.io/name" "monitoring") -}}
+        {{- (dig "grafana" "namespaceSelector" $defaultNSSelector .Values.networkPolicies.egress) | toYaml | nindent 8 }}
+    - podSelector:
+        {{- $defaultPodSelector := dict "matchLabels" (dict "app.kubernetes.io/name" "grafana") -}}
+        {{- (dig "grafana" "podSelector" $defaultPodSelector .Values.networkPolicies.egress) | toYaml | nindent 8 }}
+    ports:
+    {{- $defaultPorts := list 3000 }}
+    {{- range (dig "grafana" "ports" $defaultPorts .Values.networkPolicies.egress) }}
+    - port: {{ . }}
+    {{- end }}
+{{- end }}
