@@ -7,11 +7,32 @@ mimir-distributed:
     tag: 2.14.0
     pullSecrets:
     - private-registry
+
+  global:
+    extraVolumes:
+    - name: mimir-storage
+      emptyDir: {}
+    extraVolumeMounts:
+    - name: mimir-storage
+      mountPath: /tmp/mimir
   
   mimir:
     structuredConfig:
+      common:
+        storage:
+          backend: filesystem
+          filesystem:
+            dir: /tmp/mimir
       blocks_storage:
-        backend: filesystem
+        filesystem:
+          dir: /tmp/mimir/blocks
+      ruler_storage:
+        filesystem:
+          dir: /tmp/mimir/ruler
+      alertmanager_storage:
+        filesystem:
+          dir: /tmp/mimir/alertmanager
+
 
   memcached:
     image: 
