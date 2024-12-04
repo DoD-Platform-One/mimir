@@ -2,7 +2,7 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.5.0-bb.4
+version: 5.5.0-bb.5
 appVersion: 2.14.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
