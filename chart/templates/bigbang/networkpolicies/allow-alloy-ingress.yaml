@@ -19,7 +19,7 @@ spec:
         matchLabels:
           app.kubernetes.io/name: monitoring
     ports:
-    - port: {{ .Values.serverGrpcListenPort }}
-    - port: {{ .Values.serverHttpListenPort }}
+    - port: {{ index ".Values.mimir-distributed.mimir.serverHttpListenPort" }}
+    - port: {{ index ".Values.mimir-distributed.mimir.serverGrpcListenPort" }}
 {{- end }}
 

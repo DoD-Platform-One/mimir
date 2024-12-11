@@ -3,7 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [ 5.5.0-bb.4] 2024-12-04
+## [ 5.5.0-bb.6] 2024-12-11
+
+### Added 
+
+- Added higher Mimir ingester limits to values.yaml
+- Added grpc and http ports to values.yaml instead of importing from upstream
+
+## [ 5.5.0-bb.5] 2024-12-04
 
 ### Changed
 

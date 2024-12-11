@@ -2,7 +2,7 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.5.0-bb.5
+version: 5.5.0-bb.6
 appVersion: 2.14.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
@@ -28,12 +28,6 @@ dependencies:
   - name: mimir-distributed
     version: "5.5.0"
     repository: https://grafana.github.io/helm-charts
-    import-values:
-      - child: mimir.serverGrpcListenPort
-        parent: serverGrpcListenPort
-      - child: mimir.serverHttpListenPort
-        parent: serverHttpListenPort
-
   - name: gluon
     version: "0.5.4"
     repository: oci://registry1.dso.mil/bigbang
