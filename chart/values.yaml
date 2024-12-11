@@ -17,6 +17,8 @@ mimir-distributed:
       mountPath: /tmp/mimir
   
   mimir:
+    serverHttpListenPort: 8080
+    serverGrpcListenPort: 9095
     structuredConfig:
       common:
         storage:
