@@ -106,6 +106,16 @@ istio:
   hardened:
     enabled: false
     outboundTrafficPolicyMode: "REGISTRY_ONLY"
+    customAuthorizationPolicies: []
+      # - name: "allow-some-namespace"
+      #   enabled: true
+      #   spec:
+      #     action: ALLOW
+      #     rules:
+      #     - from:
+      #       - source:
+      #         namespaces:
+      #         - some
     customServiceEntries: []
       # - name: "allow-google"
       #   enabled: true
@@ -118,6 +128,24 @@ istio:
       #         protocol: TLS
       #         name: https
       #     resolution: DNS
+    alloy:
+      enabled: true
+      namespaces:
+        - monitoring
+      principals:
+        - cluster.local/ns/monitoring/sa/monitoring-alloy
+    grafana:
+      enabled: true
+      namespaces:
+        - monitoring
+      principals:
+        - cluster.local/ns/monitoring/sa/monitoring-grafana
+    prometheus:
+      enabled: true
+      namespaces:
+        - monitoring
+      principals:
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus
 
   mtls:
     # -- STRICT = Allow only mutual TLS traffic,

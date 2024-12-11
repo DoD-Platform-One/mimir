@@ -1,0 +1,14 @@
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.hardened.grafana.enabled -}}
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: mimir-allow-grafana-authz-policy
+  namespace: {{ .Release.Namespace }}
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: {{ .Values.istio.hardened.grafana.namespaces }}
+        principals: {{ .Values.istio.hardened.grafana.principals }}
+{{- end }}
