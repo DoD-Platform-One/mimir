@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.5.1-bb.0] - 2024-12-31
+### Changed
+- mimir-distributed updated from 5.5.0 to 5.5.1
+- gluon updated from 0.5.4 to 0.5.12
+
 ## [5.5.0-bb.8] - 2024-12-11
 ### Added
 
