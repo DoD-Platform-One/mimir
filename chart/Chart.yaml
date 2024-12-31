@@ -2,7 +2,7 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.5.0-bb.8
+version: 5.5.1-bb.0
 appVersion: 2.14.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
@@ -14,11 +14,9 @@ annotations:
     - name: mimir
       image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.14.0
     - name: nginx
-      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.27.2
+      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.27.3
     - name: memcached
       image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.31
-    - name: configmap-reload
-      image: registry1.dso.mil/ironbank/opensource/jimmidyson/configmap-reload:v0.12.0
     - name: rollout-operator
       image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.20.0
   bigbang.dev/upstreamReleaseNotesMarkdown: |
@@ -26,9 +24,9 @@ annotations:
     - [Find upstream application changelog and release notes here](https://grafana.com/docs/mimir/latest/release-notes/)
 dependencies:
   - name: mimir-distributed
-    version: "5.5.0"
+    version: "5.5.1"
     repository: https://grafana.github.io/helm-charts
   - name: gluon
-    version: "0.5.4"
+    version: "0.5.12"
     repository: oci://registry1.dso.mil/bigbang
 

@@ -69,7 +69,7 @@ mimir-distributed:
     image:
       registry: registry1.dso.mil
       repository: ironbank/opensource/nginx/nginx
-      tag: 1.27.2
+      tag: 1.27.3
 
   # Placeholder when image available in IB
   enterprise:
@@ -85,7 +85,7 @@ mimir-distributed:
       image:
         registry: registry1.dso.mil
         repository: ironbank/opensource/nginx/nginx
-        tag: 1.27.2
+        tag: 1.27.3
 
 networkPolicies:
   # -- Toggle networkPolicies
