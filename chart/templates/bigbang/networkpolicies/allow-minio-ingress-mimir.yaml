@@ -1,0 +1,24 @@
+{{- if .Values.networkPolicies.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-minio-ingress-mimir
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchExpressions:
+      - { key: app.kubernetes.io/name, operator: In, values: ["minio"] }
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          app.kubernetes.io/name: mimir
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: mimir
+    ports:
+    - port: 9000
+      protocol: TCP
+{{- end }}

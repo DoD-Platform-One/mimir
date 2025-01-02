@@ -16,7 +16,7 @@ spec:
         {{- $defaultNSSelector := dict "matchLabels" (dict "app.kubernetes.io/name" "minio") -}}
         {{- (dig "minio" "namespaceSelector" $defaultNSSelector .Values.networkPolicies.egress) | toYaml | nindent 8 }}
     - podSelector:
-        {{- $defaultPodSelector := dict "matchLabels" (dict "app.kubernetes.io/app" "minio") -}}
+        {{- $defaultPodSelector := dict "matchLabels" (dict "app.kubernetes.io/name" "minio") -}}
         {{- (dig "minio" "podSelector" $defaultPodSelector .Values.networkPolicies.egress) | toYaml | nindent 8 }}
     ports:
     {{- $defaultPorts := list 9443 }}

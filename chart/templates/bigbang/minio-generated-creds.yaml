@@ -1,0 +1,13 @@
+{{- if index .Values "minio-tenant" "enabled" }}
+{{- range index .Values "minio-tenant" "tenant" "users" }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .name }}
+  namespace:  {{ $.Release.Namespace }}
+type: Opaque
+data:
+  CONSOLE_ACCESS_KEY: {{ index $.Values "minio-tenant" "tenant" "defaultUserCredentials" "username" | b64enc }}
+  CONSOLE_SECRET_KEY: {{ (index $.Values "minio-tenant" "tenant" "defaultUserCredentials" "password" | default (randAlphaNum 8)) | b64enc }}
+{{- end }}
+{{- end }}

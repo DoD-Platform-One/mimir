@@ -19,19 +19,23 @@ mimir-distributed:
   mimir:
     serverHttpListenPort: 8080
     serverGrpcListenPort: 9095
-    structuredConfig:
+    structuredConfig:           
       common:
         storage:
           backend: filesystem
           filesystem:
             dir: /tmp/mimir
       blocks_storage:
+        storage_prefix: blocks
+        backend: filesystem
         filesystem:
           dir: /tmp/mimir/blocks
       ruler_storage:
+        storage_prefix: ruler
         filesystem:
           dir: /tmp/mimir/ruler
       alertmanager_storage:
+        storage_prefix: alertmanager
         filesystem:
           dir: /tmp/mimir/alertmanager
       limits:
@@ -39,7 +43,6 @@ mimir-distributed:
         max_label_names_per_series: 40
         max_global_series_per_user: 300000 # Optionally disable by setting to 0
         out_of_order_time_window: 10s 
-
 
   memcached:
     image: 
@@ -59,9 +62,14 @@ mimir-distributed:
       tag: v0.20.0
     imagePullSecrets:
     - name: private-registry
-    
+
+## Big Bang does not support enabling the Mimir MinIO dependency below 
+## Instead of using the minio dependency below, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
+# --omit
+# The minio parameter is not relevant for the README
   minio:
-    enabled: false
+    enabled: false # This should stay FALSE as Big Bang does not support this deployment of non-compliant MinIO, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
+  
   grafanaAgent:
     enabled: false
 
@@ -87,6 +95,51 @@ mimir-distributed:
         repository: ironbank/opensource/nginx/nginx
         tag: 1.27.3
 
+# -- Configuration for the Big Bang MinIO tenant subchart. See repo https://repo1.dso.mil/big-bang/product/packages/minio for configuring values.yaml
+minio-tenant:
+  # -- Enable MinIO instance support, must have minio-operator installed
+  enabled: false
+  # Allow the address used by Mimir to refer to MinIO to be overridden
+  address: "minio.mimir.svc.cluster.local"
+  tenant:
+    # -- MinIO root credentials
+    configSecret:
+      name: "mimir-objstore-creds"
+      accessKey: "minio"
+      secretKey: "minio123" # default key, change this!
+    # -- Buckets to be provisioned to for tenant
+    buckets:
+      - name: mimir
+    # -- Name of the Secret that will contain the defaultUserCredentials generated for Tenant User
+    users:
+      - name: mimir-user-credentials
+    # -- User credentials to create as a secret for above user. Otherwise password is randomly generated.
+    # This auth is not required to be set or reclaimed for minio use with mimir
+    defaultUserCredentials:
+      username: "mimir-user"
+      password: "supersecret"
+    ## Specification for MinIO Pool(s) in this Tenant.
+    pools:
+      - name: pool-0
+        servers: 4
+        volumesPerServer: 4
+        size: 750Mi
+        securityContext:
+          runAsUser: 1001
+          runAsGroup: 1001
+          fsGroup: 1001
+        containerSecurityContext:
+          capabilities:
+            drop:
+              - ALL
+
+    metrics:
+      enabled: false
+      port: 9000
+      memory: 128M
+  waitJob:
+    enabled: false
+
 networkPolicies:
   # -- Toggle networkPolicies
   enabled: true
@@ -97,7 +150,6 @@ networkPolicies:
   additionalPolicies: []
 
   egress: {}
-
 
 istio:
   # -- Toggle istio configuration
@@ -146,6 +198,14 @@ istio:
         - monitoring
       principals:
         - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus
+    minioOperator:
+      enabled: true
+      namespaces:
+        - minio-operator
+      principals:
+        - cluster.local/ns/minio-operator/sa/minio-operator
+    minio:
+      enabled: true
 
   mtls:
     # -- STRICT = Allow only mutual TLS traffic,

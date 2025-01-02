@@ -1,0 +1,17 @@
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.hardened.minio.enabled -}}
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: mimir-allow-minio-authz-policy
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minio
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: [{{ .Release.Namespace | quote }}]
+        principals: ["cluster.local/ns/mimir/sa/mimir-mimir"]
+{{- end }}
