@@ -1,5 +1,2 @@
-mimir-distributed:
-  mimir:
-    structuredConfig:
-        blocks_storage:
-          backend: filesystem
+bbtests:
+  enabled: true

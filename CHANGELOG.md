@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [ 5.5.1-bb.1] 2025-01-02
+### Added
+
+- Added Big Bang MinIO dependency for deployment witih Mimir
+- Added supporting Network Policies for MinIO
+- Added Authoization Policies for MinIO
+- Moved the values from test-values.yaml to values.yaml
+
 ## [5.5.1-bb.0] - 2024-12-31
 ### Changed
 - mimir-distributed updated from 5.5.0 to 5.5.1

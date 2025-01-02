@@ -26,7 +26,10 @@ flux:
     cleanupOnFail: false
 
 istio:
-  enabled: false
+  enabled: true
+  values:
+    hardened:
+      enabled: true
 
 addons:
   mimir:
