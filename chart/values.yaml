@@ -4,7 +4,7 @@
 mimir-distributed:
   image:
     repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
-    tag: 2.14.0
+    tag: 2.14.2
     pullSecrets:
     - private-registry
 
@@ -47,7 +47,7 @@ mimir-distributed:
   memcached:
     image: 
       repository: registry1.dso.mil/ironbank/opensource/memcached/memcached
-      tag: 1.6.31
+      tag: 1.6.34
   
   # Placeholder when image available in IB
   memcachedExporter:
@@ -59,7 +59,7 @@ mimir-distributed:
   rollout_operator:
     image:
       repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator 
-      tag: v0.20.0
+      tag: v0.22.0
     imagePullSecrets:
     - name: private-registry
 

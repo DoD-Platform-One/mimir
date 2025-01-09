@@ -2,23 +2,23 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.5.1-bb.1
-appVersion: 2.14.0
+version: 5.5.1-bb.2
+appVersion: 2.14.2
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
   - https://github.com/grafana/mimir/tree/main/operations/helm/charts/mimir-distributed
 annotations:
   bigbang.dev/applicationVersions: |
-    - mimir: '2.14.0'
+    - mimir: '2.14.2'
   helm.sh/images: |
     - name: mimir
-      image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.14.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.14.2
     - name: nginx
       image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.27.3
     - name: memcached
-      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.31
+      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.34
     - name: rollout-operator
-      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.20.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.22.0
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream helm chart changelog and release notes here](https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/CHANGELOG.md)
     - [Find upstream application changelog and release notes here](https://grafana.com/docs/mimir/latest/release-notes/)
