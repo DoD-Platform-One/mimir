@@ -1,2 +1,37 @@
-bbtests:
+networkPolicies:
   enabled: true
+  controlPlaneCidr: 172.16.0.0/12
+
+istio:
+  hardened:
+    customServiceEntries:
+      - name: "cypress-service-entries-mimir"
+        enabled: true
+        spec:
+          hosts:
+            - 'registry.npmjs.org'
+            - 'download.cypress.io'
+            - 'cdn.cypress.io'
+            - 'repo1.dso.mil'
+            - 'prometheus.dev.bigbang.mil'
+            - 'grafana.dev.bigbang.mil'
+            - 'alertmanager.dev.bigbang.mil'
+          location: MESH_EXTERNAL
+          ports:
+            - number: 443
+              protocol: TLS
+              name: https
+          resolution: DNS
+
+
+# Package testing is done at bigbang level
+bbtests:
+  enabled: false
+  cypress:
+    artifacts: false
+    envs:
+      cypress_grafana_url: 'https://grafana.dev.bigbang.mil'
+  scripts:
+    image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
+    envs:
+      MIMIR_URL: 'http://mimir-mimir-distributor.mimir.svc:8080'
