@@ -26,12 +26,10 @@ istio:
 
 # Package testing is done at bigbang level
 bbtests:
-  enabled: false
+  enabled: true
   cypress:
-    artifacts: false
-    envs:
-      cypress_grafana_url: 'https://grafana.dev.bigbang.mil'
+    enabled: false
   scripts:
     image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     envs:
-      MIMIR_URL: 'http://mimir-mimir-distributor.mimir.svc:8080'
+      MIMIR_URL: 'http://mimir-distributor.mimir.svc:8080'

@@ -215,6 +215,7 @@ istio:
 bbtests:
   enabled: false
   cypress:
+    enabled: true
     artifacts: true
     envs:
       cypress_grafana_url: 'http://monitoring-grafana.monitoring.svc.cluster.local'
