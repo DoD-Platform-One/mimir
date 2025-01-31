@@ -121,6 +121,9 @@ minio-tenant:
     ## Specification for MinIO Pool(s) in this Tenant.
     pools:
       - name: pool-0
+        labels:
+          app: minio
+          app.kubernetes.io/name: minio
         servers: 4
         volumesPerServer: 4
         size: 750Mi
