@@ -124,7 +124,7 @@ minio-tenant:
         labels:
           app: minio
           app.kubernetes.io/name: minio
-        servers: 4
+        servers: 1
         volumesPerServer: 4
         size: 750Mi
         securityContext:
