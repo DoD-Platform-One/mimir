@@ -73,7 +73,10 @@ mimir-distributed:
   grafanaAgent:
     enabled: false
 
+# -- DEPRECATED: use the 'gateway' section instead. For a migration guide refer to
+# https://grafana.com/docs/helm-charts/mimir-distributed/latest/migration-guides/migrate-to-unified-proxy-deployment/
   nginx: 
+    enabled: false
     image:
       registry: registry1.dso.mil
       repository: ironbank/opensource/nginx/nginx
@@ -88,6 +91,7 @@ mimir-distributed:
   #     pullPolicy:
   
   gateway:
+    enabled: true
     enabledNonEnterprise: true
     nginx:
       image:

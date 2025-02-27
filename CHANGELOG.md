@@ -3,12 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [5.5.1-bb.5] 2025-02-14
+## [5.5.1-bb.6] - 2025-02-20
+### Changed
+
+- Set `.Values.nginx.enabled` to `false` as this is deprecated in favor of `gateway`
+
+## [5.5.1-bb.5] - 2025-02-14
 ### Changed
 
 - MinIO Tenant Pool from 4 to 1 server
 
-## [5.5.1-bb.4] 2025-01-31
+## [5.5.1-bb.4] - 2025-01-31
 ### Added
 
 - Added `app: minio` and `app.kubernetes.io/name: minio` labels to MinIO Tenant
@@ -45,13 +50,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added Istio monitoring auth policy, auth policy template, sidecar, and service entry
 
 ## [5.5.0-bb.7] - 2024-12-11
-### Added 
+### Added
 
 - Network Policy for Grafana ingress
 - Changed the index pattern for network policies
 
 ## [5.5.0-bb.6] - 2024-12-11
-### Added 
+### Added
 
 - Added higher Mimir ingester limits to values.yaml
 - Added grpc and http ports to values.yaml instead of importing from upstream
@@ -76,7 +81,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Modified chart.yaml details to accurately match upstream 5.5.0 tag
-- Updated mimir image to use Ironbank equivalent 
+- Updated mimir image to use Ironbank equivalent
 - Updated nginx image to use Ironbank equivalent
 - Updated memcached image to use Ironbank equivalent
 
