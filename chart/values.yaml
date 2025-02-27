@@ -219,6 +219,20 @@ istio:
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
 
+upgradeJob:
+  enabled: true
+  name: mimir-upgrade-job
+  image:
+    # -- image repository for upgradeJob
+    repository: registry1.dso.mil/ironbank/big-bang/base
+    # -- image tag for upgradeJob
+    tag: 2.1.0
+    imagePullPolicy: IfNotPresent
+    pullSecrets: private-registry
+  serviceAccount: upgrade-job-svc-account
+  role: upgrade-role
+  roleBinding: upgrade-rolebinding
+
 bbtests:
   enabled: false
   cypress:

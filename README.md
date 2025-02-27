@@ -56,6 +56,15 @@ helm install mimir chart/
 | istio.enabled | bool | `false` | Toggle istio configuration |
 | istio.hardened | object | `{"alloy":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-alloy"]},"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"grafana":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-grafana"]},"minio":{"enabled":true},"minioOperator":{"enabled":true,"namespaces":["minio-operator"],"principals":["cluster.local/ns/minio-operator/sa/minio-operator"]},"outboundTrafficPolicyMode":"REGISTRY_ONLY","prometheus":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"]}}` | Default peer authentication values |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| upgradeJob.enabled | bool | `true` |  |
+| upgradeJob.name | string | `"mimir-upgrade-job"` |  |
+| upgradeJob.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | image repository for upgradeJob |
+| upgradeJob.image.tag | string | `"2.1.0"` | image tag for upgradeJob |
+| upgradeJob.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| upgradeJob.image.pullSecrets | string | `"private-registry"` |  |
+| upgradeJob.serviceAccount | string | `"upgrade-job-svc-account"` |  |
+| upgradeJob.role | string | `"upgrade-role"` |  |
+| upgradeJob.roleBinding | string | `"upgrade-rolebinding"` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.cypress.enabled | bool | `true` |  |
 | bbtests.cypress.artifacts | bool | `true` |  |
