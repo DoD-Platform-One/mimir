@@ -1,0 +1,24 @@
+{{- if and .Values.networkPolicies.enabled .Values.istio.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-mimir-sidecar-scraping
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchExpressions:
+      - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus 
+      namespaceSelector:
+        matchLabels:
+          app.kubernetes.io/name: monitoring
+    ports:
+    - port: 15020
+      protocol: TCP
+{{- end }}
