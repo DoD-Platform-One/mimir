@@ -7,7 +7,7 @@ metadata:
 spec:
   podSelector:
     matchExpressions:
-      - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
+      - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator", "minio"] }
   policyTypes:
   - Ingress
   ingress:
