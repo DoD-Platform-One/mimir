@@ -19,7 +19,10 @@ mimir-distributed:
   mimir:
     serverHttpListenPort: 8080
     serverGrpcListenPort: 9095
-    structuredConfig:           
+
+    structuredConfig:    
+      usage_stats:
+        enabled: false       
       common:
         storage:
           backend: filesystem
