@@ -46,6 +46,7 @@ mimir-distributed:
         max_label_names_per_series: 40
         max_global_series_per_user: 300000 # Optionally disable by setting to 0
         out_of_order_time_window: 10s 
+        max_global_exemplars_per_user: 100000
 
   memcached:
     image: 
