@@ -2,7 +2,7 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.5.1-bb.10
+version: 5.5.1-bb.11
 appVersion: 2.14.2
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
@@ -14,11 +14,11 @@ annotations:
     - name: mimir
       image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.14.2
     - name: nginx
-      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.27.3
+      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.27.4
     - name: memcached
-      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.34
+      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.38
     - name: rollout-operator
-      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.22.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.24.0
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream helm chart changelog and release notes here](https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/CHANGELOG.md)
     - [Find upstream application changelog and release notes here](https://grafana.com/docs/mimir/latest/release-notes/)
@@ -27,7 +27,7 @@ dependencies:
     version: "5.5.1"
     repository: https://grafana.github.io/helm-charts
   - name: gluon
-    version: "0.5.12"
+    version: "0.5.14"
     repository: oci://registry1.dso.mil/bigbang
   - name: minio-instance
     alias: minio-tenant
