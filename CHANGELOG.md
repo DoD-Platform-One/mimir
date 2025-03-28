@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [5.5.1-bb.11] (2025-03-26)
+### Changed
+- gluon 0.5.12 -> 0.5.14
+- registry1.dso.mil/ironbank/opensource/grafana/rollout-operator v0.22.0 -> v0.24.0
+- registry1.dso.mil/ironbank/opensource/memcached/memcached 1.6.34 -> 1.6.38
+- registry1.dso.mil/ironbank/opensource/nginx/nginx 1.27.3 -> 1.27.4
+
 ## [5.5.1-bb.10] 2025-03-24
 ### Changed
 
