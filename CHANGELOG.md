@@ -4,6 +4,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [5.6.0-bb.0] (2025-04-01)
+### Added
+- Add ingestion_rate limit to default values
+
+### Changed
+- mimir-distributed updated from 5.5.1 to 5.6.0
+- gluon 0.5.14 -> 0.5.15
+- mimir-distributed 5.5.1 -> 5.6.0
+- minio-instance 6.0.4 -> 7.0.0
+- registry1.dso.mil/ironbank/opensource/grafana/mimir 2.14.2 -> 2.15.1
+
 ## [5.5.1-bb.11] (2025-03-26)
 ### Changed
 - gluon 0.5.12 -> 0.5.14

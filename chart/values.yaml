@@ -4,7 +4,7 @@
 mimir-distributed:
   image:
     repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
-    tag: 2.14.2
+    tag: 2.15.1
     pullSecrets:
     - private-registry
 
@@ -47,6 +47,7 @@ mimir-distributed:
         max_global_series_per_user: 300000 # Optionally disable by setting to 0
         out_of_order_time_window: 10s 
         max_global_exemplars_per_user: 100000
+        ingestion_rate: 30000
 
   memcached:
     image: 
