@@ -1,35 +1,44 @@
-networkPolicies:
-  enabled: true
-  controlPlaneCidr: 172.16.0.0/12
-
-istio:
-  hardened:
-    customServiceEntries:
-      - name: "cypress-service-entries-mimir"
+#########################
+# Disable Core Packages #
+#########################
+neuvector:
+  enabled: false
+promtail:
+  enabled: false
+tempo:
+  enabled: false
+kyvernoReporter:
+  enabled: false
+kiali:
+  enabled: false
+loki:
+  enabled: false
+addons:
+########################
+# Required for package #
+########################
+  minio-operator:
+    enabled: true
+  mimir:
+    enabled: true
+    values:
+      bbtests:
         enabled: true
-        spec:
-          hosts:
-            - 'registry.npmjs.org'
-            - 'download.cypress.io'
-            - 'cdn.cypress.io'
-            - 'repo1.dso.mil'
-            - 'prometheus.dev.bigbang.mil'
-            - 'grafana.dev.bigbang.mil'
-            - 'alertmanager.dev.bigbang.mil'
-          location: MESH_EXTERNAL
-          ports:
-            - number: 443
-              protocol: TLS
-              name: https
-          resolution: DNS
-
-
-# Package testing is done at bigbang level
-bbtests:
+grafana:
   enabled: true
-  cypress:
-    enabled: false
-  scripts:
-    image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
-    envs:
-      MIMIR_URL: 'http://mimir-distributor.mimir.svc:8080'
+  values:
+    bbtests:
+      enabled: false
+monitoring:
+  enabled: true
+  values:
+    bbtests:
+      enabled: false
+kyvernoPolicies:
+  values:
+    bbtests:
+      enabled: false
+kyverno:
+  values:
+    bbtests:
+      enabled: false
