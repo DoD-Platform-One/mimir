@@ -87,13 +87,11 @@ mimir-distributed:
       repository: ironbank/opensource/nginx/nginx
       tag: 1.27.5
 
-  # Placeholder when image available in IB
   enterprise:
     enabled: false
-  #   image: 
-  #     repository: registry1.dso.mil/ironbank/opensource/ #TODO
-  #     tag: 
-  #     pullPolicy:
+    image: 
+      repository: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics
+      tag: v2.16.0
   
   gateway:
     enabled: true
