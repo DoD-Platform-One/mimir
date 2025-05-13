@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.7.0-bb.1] (2025-04-29)
+### Added
+- Added enterprise-metrics ironbank image to .Values.enterprise.image
+
 ## [5.7.0-bb.0] (2025-04-23)
 ### Changed
 - mimir-distributed updated from 5.6.0 to 5.7.0
