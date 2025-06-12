@@ -5,6 +5,8 @@ neuvector:
   enabled: false
 promtail:
   enabled: false
+alloy:
+  enabled: false
 tempo:
   enabled: false
 kyvernoReporter:
@@ -13,14 +15,22 @@ kiali:
   enabled: false
 loki:
   enabled: false
+bbctl:
+  enabled: false
 addons:
+  minio:
+    enabled: false
+  # Disable MinIO for package level test-values.yaml
+  minioOperator:
+    enabled: false
 ########################
 # Required for package #
 ########################
-  minio-operator:
-    enabled: true
   mimir:
     enabled: true
+    # Disable MinIO for package level test-values.yaml
+    minioObjectStorage:                                                                                                
+      enabled: false 
     values:
       bbtests:
         enabled: true
