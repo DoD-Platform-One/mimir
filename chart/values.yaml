@@ -64,7 +64,7 @@ mimir-distributed:
   rollout_operator:
     image:
       repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator 
-      tag: v0.26.0
+      tag: v0.27.0
     imagePullSecrets:
     - name: private-registry
 
@@ -85,7 +85,7 @@ mimir-distributed:
     image:
       registry: registry1.dso.mil
       repository: ironbank/opensource/nginx/nginx
-      tag: 1.27.5
+      tag: 1.28.0
 
   enterprise:
     enabled: false
@@ -100,7 +100,7 @@ mimir-distributed:
       image:
         registry: registry1.dso.mil
         repository: ironbank/opensource/nginx/nginx
-        tag: 1.27.5
+        tag: 1.28.0
 
 # -- Configuration for the Big Bang MinIO tenant subchart. See repo https://repo1.dso.mil/big-bang/product/packages/minio for configuring values.yaml
 minio-tenant:
@@ -243,7 +243,7 @@ bbtests:
     artifacts: true
     envs:
       cypress_grafana_url: 'http://monitoring-grafana.monitoring.svc.cluster.local'
-    scripts:
-      image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
-      envs:
-        MIMIR_URL: 'http://mimir-mimir-distributor.mimir.svc:8080'
+  scripts:
+    image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
+    envs:
+      MIMIR_URL: 'http://mimir-mimir-distributor.mimir.svc:8080'

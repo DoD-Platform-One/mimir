@@ -113,7 +113,14 @@ The following overrides file can be used for a bare minimum Mimir deployment:
 ```yaml
 domain: dev.bigbang.mil
 
-istio:
+istiod:
+  enabled: true
+  values:
+    hardened:
+      enabled: true
+istioCRDs:
+  enabled: true
+istioGateway:
   enabled: true
 
 flux:
@@ -153,12 +160,21 @@ monitoring:
 neuvector:
   enabled: false
 
+loki:
+  minio:
+    enabled: false
+
 addons:
   mimir:
     enabled: true
     git:
       tag: null
       branch: renovate/ironbank
+# Toggle testing with Minio S3 Backend
+    minioObjectStorage:                                                                                                
+      enabled: false 
+  minioOperator:
+    enabled: false
 ```
 
 - Ensure all Pods are in a ready/working state
