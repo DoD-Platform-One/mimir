@@ -13,11 +13,15 @@ spec:
   ingress:
   - from:
     - podSelector:
-        matchLabels:
-          app: alloy 
+        matchExpressions:
+          - key: app.kubernetes.io/instance
+            operator: In
+            values:
+              - alloy
+              - alloy-alloy-logs
       namespaceSelector:
         matchLabels:
-          app.kubernetes.io/name: monitoring
+          app.kubernetes.io/name: alloy
     ports:
     - port: {{ index .Values "mimir-distributed" "mimir" "serverHttpListenPort" }}
     - port: {{ index .Values "mimir-distributed" "mimir" "serverGrpcListenPort" }}

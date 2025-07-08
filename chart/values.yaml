@@ -193,9 +193,9 @@ istio:
     alloy:
       enabled: true
       namespaces:
-        - monitoring
+        - alloy
       principals:
-        - cluster.local/ns/monitoring/sa/monitoring-alloy
+        - cluster.local/ns/alloy/sa/alloy-alloy-logs
     grafana:
       enabled: true
       namespaces:
