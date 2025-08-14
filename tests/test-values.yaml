@@ -3,8 +3,6 @@
 #########################
 neuvector:
   enabled: false
-promtail:
-  enabled: false
 alloy:
   enabled: false
 tempo:
