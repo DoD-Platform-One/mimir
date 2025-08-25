@@ -4,7 +4,7 @@
 mimir-distributed:
   image:
     repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
-    tag: 2.16.0
+    tag: 2.17.0
     pullSecrets:
     - private-registry
 
@@ -52,7 +52,7 @@ mimir-distributed:
   memcached:
     image: 
       repository: registry1.dso.mil/ironbank/opensource/memcached/memcached
-      tag: 1.6.38
+      tag: 1.6.39
   
   # Placeholder when image available in IB
   memcachedExporter:
@@ -64,7 +64,7 @@ mimir-distributed:
   rollout_operator:
     image:
       repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator 
-      tag: v0.27.0
+      tag: v0.28.0
     imagePullSecrets:
     - name: private-registry
 
@@ -85,13 +85,13 @@ mimir-distributed:
     image:
       registry: registry1.dso.mil
       repository: ironbank/opensource/nginx/nginx
-      tag: 1.28.0
+      tag: 1.29.1
 
   enterprise:
     enabled: false
     image: 
       repository: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics
-      tag: v2.16.0
+      tag: v2.17.0
   
   gateway:
     enabled: true
@@ -100,7 +100,7 @@ mimir-distributed:
       image:
         registry: registry1.dso.mil
         repository: ironbank/opensource/nginx/nginx
-        tag: 1.28.0
+        tag: 1.29.1
 
 # -- Configuration for the Big Bang MinIO tenant subchart. See repo https://repo1.dso.mil/big-bang/product/packages/minio for configuring values.yaml
 minio-tenant:

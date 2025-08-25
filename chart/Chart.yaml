@@ -2,25 +2,27 @@ apiVersion: v2
 name: mimir
 description: Grafana Mimir
 type: application
-version: 5.7.0-bb.3
-appVersion: 2.16.0
+version: 5.7.0-bb.4
+appVersion: 2.17.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
   - https://github.com/grafana/mimir/tree/main/operations/helm/charts/mimir-distributed
 annotations:
   bigbang.dev/applicationVersions: |
-    - mimir: '2.16.0'
+    - mimir: '2.17.0'
   helm.sh/images: |
     - name: mimir
-      image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.16.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/mimir:2.17.0
     - name: nginx
-      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.28.0
+      image: registry1.dso.mil/ironbank/opensource/nginx/nginx:1.29.1
     - name: memcached
-      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.38
+      image: registry1.dso.mil/ironbank/opensource/memcached/memcached:1.6.39
     - name: rollout-operator
-      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.27.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator:v0.28.0
     - name: enterprise-metrics
-      image: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics:v2.16.0
+      image: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics:v2.17.0
+    - name: base
+      image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream helm chart changelog and release notes here](https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/CHANGELOG.md)
     - [Find upstream application changelog and release notes here](https://grafana.com/docs/mimir/latest/release-notes/)
@@ -29,11 +31,10 @@ dependencies:
     version: "5.7.0"
     repository: https://grafana.github.io/helm-charts
   - name: gluon
-    version: "0.6.2"
+    version: "0.8.0"
     repository: oci://registry1.dso.mil/bigbang
   - name: minio-instance
     alias: minio-tenant
-    version: 7.0.0-bb.4
+    version: 7.1.1-bb.8
     repository: oci://registry1.dso.mil/bigbang
     condition: minio-tenant.enabled
-
