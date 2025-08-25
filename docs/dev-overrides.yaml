@@ -1,0 +1,68 @@
+domain: dev.bigbang.mil
+sso:
+  url: https://login.dso.mil/auth/realms/baby-yoda
+
+istiod:
+  enabled: true
+  values:
+    hardened:
+      enabled: true
+istioCRDs:
+  enabled: true
+istioGateway:
+  enabled: true
+
+flux:
+  interval: 1m
+  rollback:
+    cleanupOnFail: false
+
+kyverno:
+  enabled: true
+
+kyvernoPolicies:
+  enabled: true
+
+grafana:
+  enabled: true
+  sso:
+    enabled: true
+    grafana:
+      client_id: platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-grafana
+      scopes: "openid Grafana"
+  values:
+    istio:
+      enabled: true
+
+monitoring:
+  enabled: true
+  sso:
+    enabled: true
+    prometheus:
+      client_id: platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-prometheus
+    alertmanager:
+      client_id: platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-alertmanager
+  values:
+    istio:
+      enabled: true
+
+neuvector:
+  enabled: false
+
+loki:
+  minio:
+    enabled: false
+
+addons:
+  authservice:
+    enabled: true
+  mimir:
+    enabled: true
+    git:
+      tag: null
+      branch: renovate/ironbank
+# Toggle testing with Minio S3 Backend
+    minioObjectStorage:
+      enabled: false
+  minioOperator:
+    enabled: false

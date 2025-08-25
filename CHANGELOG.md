@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.7.0-bb.4] (2025-07-10)
+### Changed
+- gluon updated from 0.6.2 to 0.8.0
+- minio updated from 7.0.0-bb.4 to 7.1.1-bb.8
+- registry1.dso.mil/ironbank/opensource/grafana/rollout-operator updated from v0.27.0 to v0.28.0
+- registry1.dso.mil/ironbank/opensource/nginx/nginx updated from 1.28.0 to 1.29.1
+- registry1.dso.mil/ironbank/opensource/memcached/memcached updated from v1.6.38 to v1.6.39
+- registry1.dso.mil/ironbank/opensource/grafana/mimir updated from 2.16.0 to 2.17.0
+- registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics updated from 2.16.0 to 2.17.0
+
 ## [5.7.0-bb.3] (2025-07-08)
 ### Changed
 - Updated Alloy network policy pod selector
