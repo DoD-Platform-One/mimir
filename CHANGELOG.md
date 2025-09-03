@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.7.0-bb.5] (2025-09-03)
+### Changed
+- Added allow-egress-storage networkpolicy template to enable Mimir components to access S3 storage
+
 ## [5.7.0-bb.4] (2025-07-10)
 ### Changed
 - gluon updated from 0.6.2 to 0.8.0
