@@ -1,12 +1,12 @@
 dependencies:
 - name: mimir-distributed
   repository: https://grafana.github.io/helm-charts
-  version: 5.7.0
+  version: 5.8.0
 - name: gluon
   repository: oci://registry1.dso.mil/bigbang
-  version: 0.8.0
+  version: 0.9.0
 - name: minio-instance
   repository: oci://registry1.dso.mil/bigbang
   version: 7.1.1-bb.8
-digest: sha256:b66d8033e766cbd1c4863cc4d72b8043f80bfd114c8ae162dd97e244461d7398
-generated: "2025-08-20T09:18:35.84866-04:00"
+digest: sha256:f014a1d38511ee8232ece5d83569cd173bc34cc2d28e0f1f9754c7ef7fddc629
+generated: "2025-09-09T06:07:35.624529827Z"

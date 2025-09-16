@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.8.0-bb.0] (2025-09-09)
+### Changed
+- mimir-distributed updated from 5.7.0 to 5.8.0
+- gluon 0.8.0 -> 0.9.0
+- mimir-distributed 5.7.0 -> 5.8.0
+- registry1.dso.mil/ironbank/opensource/grafana/mimir 2.17.0 -> 2.17.1
+- registry1.dso.mil/ironbank/opensource/grafana/rollout-operator v0.28.0 -> v0.29.0
+
 ## [5.7.0-bb.5] (2025-09-03)
 ### Changed
 - Added allow-egress-storage networkpolicy template to enable Mimir components to access S3 storage
