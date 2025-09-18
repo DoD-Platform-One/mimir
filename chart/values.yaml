@@ -1,107 +1,3 @@
-# Settings for mimir-distributed chart
-# -- See https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml for available values.
-# @default -- Our overrides are defined in charts/values.yaml file.
-mimir-distributed:
-  image:
-    repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
-    tag: 2.17.1
-    pullSecrets:
-    - private-registry
-
-  global:
-    extraVolumes:
-    - name: mimir-storage
-      emptyDir: {}
-    extraVolumeMounts:
-    - name: mimir-storage
-      mountPath: /tmp/mimir
-  
-  mimir:
-    serverHttpListenPort: 8080
-    serverGrpcListenPort: 9095
-
-    structuredConfig:    
-      usage_stats:
-        enabled: false       
-      common:
-        storage:
-          backend: filesystem
-          filesystem:
-            dir: /tmp/mimir
-      blocks_storage:
-        storage_prefix: blocks
-        backend: filesystem
-        filesystem:
-          dir: /tmp/mimir/blocks
-      ruler_storage:
-        storage_prefix: ruler
-        filesystem:
-          dir: /tmp/mimir/ruler
-      alertmanager_storage:
-        storage_prefix: alertmanager
-        filesystem:
-          dir: /tmp/mimir/alertmanager
-      limits:
-      # Minimum limits required for Big Bang
-        max_label_names_per_series: 40
-        max_global_series_per_user: 300000 # Optionally disable by setting to 0
-        out_of_order_time_window: 10s 
-        max_global_exemplars_per_user: 100000
-        ingestion_rate: 30000
-
-  memcached:
-    image: 
-      repository: registry1.dso.mil/ironbank/opensource/memcached/memcached
-      tag: 1.6.39
-  
-  # Placeholder when image available in IB
-  memcachedExporter:
-    enabled: false
-  #   image: 
-  #     repository: registry1.dso.mil/ironbank/opensource/ #TODO
-  #     tag: 
-
-  rollout_operator:
-    image:
-      repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator 
-      tag: v0.29.0
-    imagePullSecrets:
-    - name: private-registry
-
-## Big Bang does not support enabling the Mimir MinIO dependency below 
-## Instead of using the minio dependency below, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
-# --omit
-# The minio parameter is not relevant for the README
-  minio:
-    enabled: false # This should stay FALSE as Big Bang does not support this deployment of non-compliant MinIO, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
-  
-  grafanaAgent:
-    enabled: false
-
-# -- DEPRECATED: use the 'gateway' section instead. For a migration guide refer to
-# https://grafana.com/docs/helm-charts/mimir-distributed/latest/migration-guides/migrate-to-unified-proxy-deployment/
-  nginx: 
-    enabled: false
-    image:
-      registry: registry1.dso.mil
-      repository: ironbank/opensource/nginx/nginx
-      tag: 1.29.1
-
-  enterprise:
-    enabled: false
-    image: 
-      repository: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics
-      tag: v2.17.0
-  
-  gateway:
-    enabled: true
-    enabledNonEnterprise: true
-    nginx:
-      image:
-        registry: registry1.dso.mil
-        repository: ironbank/opensource/nginx/nginx
-        tag: 1.29.1
-
 # -- Configuration for the Big Bang MinIO tenant subchart. See repo https://repo1.dso.mil/big-bang/product/packages/minio for configuring values.yaml
 minio-tenant:
   # -- Enable MinIO instance support, must have minio-operator installed
@@ -160,7 +56,7 @@ networkPolicies:
   additionalPolicies: []
 
   egress: {}
-    
+
 istio:
   # -- Toggle istio configuration
   enabled: false
@@ -247,3 +143,105 @@ bbtests:
     image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     envs:
       MIMIR_URL: 'http://mimir-mimir-distributor.mimir.svc:8080'
+
+# Ref: https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml
+upstream:
+  image:
+    repository: registry1.dso.mil/ironbank/opensource/grafana/mimir
+    tag: 2.17.1
+    pullSecrets:
+    - private-registry
+
+  global:
+    extraVolumes:
+    - name: mimir-storage
+      emptyDir: {}
+    extraVolumeMounts:
+    - name: mimir-storage
+      mountPath: /tmp/mimir
+
+  mimir:
+    serverHttpListenPort: 8080
+    serverGrpcListenPort: 9095
+
+    structuredConfig:
+      usage_stats:
+        enabled: false
+      common:
+        storage:
+          backend: filesystem
+          filesystem:
+            dir: /tmp/mimir
+      blocks_storage:
+        storage_prefix: blocks
+        backend: filesystem
+        filesystem:
+          dir: /tmp/mimir/blocks
+      ruler_storage:
+        storage_prefix: ruler
+        filesystem:
+          dir: /tmp/mimir/ruler
+      alertmanager_storage:
+        storage_prefix: alertmanager
+        filesystem:
+          dir: /tmp/mimir/alertmanager
+      limits:
+      # Minimum limits required for Big Bang
+        max_label_names_per_series: 40
+        max_global_series_per_user: 300000 # Optionally disable by setting to 0
+        out_of_order_time_window: 10s
+        max_global_exemplars_per_user: 100000
+        ingestion_rate: 30000
+
+  memcached:
+    image:
+      repository: registry1.dso.mil/ironbank/opensource/memcached/memcached
+      tag: 1.6.39
+
+  # Placeholder when image available in IB
+  memcachedExporter:
+    enabled: false
+  #   image:
+  #     repository: registry1.dso.mil/ironbank/opensource/ #TODO
+  #     tag:
+
+  rollout_operator:
+    image:
+      repository: registry1.dso.mil/ironbank/opensource/grafana/rollout-operator
+      tag: v0.29.0
+    imagePullSecrets:
+    - name: private-registry
+
+## Big Bang does not support enabling the Mimir MinIO dependency below
+## Instead of using the minio dependency below, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
+# --omit
+# The minio parameter is not relevant for the README
+  minio:
+    enabled: false # This should stay FALSE as Big Bang does not support this deployment of non-compliant MinIO, if users want to deploy Big Bang-compliant MinIO, they should enable the minio-tenant parameter
+
+  grafanaAgent:
+    enabled: false
+
+# -- DEPRECATED: use the 'gateway' section instead. For a migration guide refer to
+# https://grafana.com/docs/helm-charts/mimir-distributed/latest/migration-guides/migrate-to-unified-proxy-deployment/
+  nginx:
+    enabled: false
+    image:
+      registry: registry1.dso.mil
+      repository: ironbank/opensource/nginx/nginx
+      tag: 1.29.1
+
+  enterprise:
+    enabled: false
+    image:
+      repository: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics
+      tag: v2.17.0
+
+  gateway:
+    enabled: true
+    enabledNonEnterprise: true
+    nginx:
+      image:
+        registry: registry1.dso.mil
+        repository: ironbank/opensource/nginx/nginx
+        tag: 1.29.1

@@ -5,7 +5,7 @@ metadata:
   name: allow-alloy-ingress-{{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  podSelector: 
+  podSelector:
     matchExpressions:
       - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
   policyTypes:
@@ -23,7 +23,7 @@ spec:
         matchLabels:
           app.kubernetes.io/name: alloy
     ports:
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverHttpListenPort" }}
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverGrpcListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverHttpListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverGrpcListenPort" }}
 {{- end }}
 
