@@ -5,7 +5,7 @@ metadata:
   name: allow-prometheus-ingress-{{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  podSelector: 
+  podSelector:
     matchExpressions:
       - { key: app.kubernetes.io/name, operator: In, values: ["mimir", "rollout-operator"] }
   policyTypes:
@@ -14,12 +14,12 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: prometheus 
+          app: prometheus
       namespaceSelector:
         matchLabels:
           app.kubernetes.io/name: monitoring
     ports:
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverHttpListenPort" }}
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverGrpcListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverHttpListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverGrpcListenPort" }}
 {{- end }}
 

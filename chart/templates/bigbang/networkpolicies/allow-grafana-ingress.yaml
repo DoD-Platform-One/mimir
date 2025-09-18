@@ -19,6 +19,6 @@ spec:
         {{- $defaultPodSelector := dict "matchLabels" (dict "app.kubernetes.io/name" "grafana") -}}
         {{- (dig "grafana" "podSelector" $defaultPodSelector .Values.networkPolicies.egress) | toYaml | nindent 8 }}
     ports:
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverHttpListenPort" }}
-    - port: {{ index .Values "mimir-distributed" "mimir" "serverGrpcListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverHttpListenPort" }}
+    - port: {{ index .Values "upstream" "mimir" "serverGrpcListenPort" }}
 {{- end }}
