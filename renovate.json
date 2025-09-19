@@ -1,27 +1,53 @@
 {
-  "baseBranches": ["main"],
+  "baseBranches": [
+    "main"
+  ],
   "configWarningReuseIssue": false,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate: Upgrade Mimir Package Dependencies",
   "draftPR": true,
-  "enabledManagers": ["custom.regex", "helm-values", "helmv3"],
-  "ignorePaths": ["chart/charts/**"],
-  "labels": ["mimir", "renovate", "kind::maintenance", "team::Observability"],
-  "postUpdateOptions": ["helmUpdateSubChartArchives"],
+  "enabledManagers": [
+    "custom.regex",
+    "helm-values",
+    "helmv3"
+  ],
+  "ignorePaths": [
+    "chart/charts/**"
+  ],
+  "labels": [
+    "mimir",
+    "renovate",
+    "kind::maintenance",
+    "team::Observability"
+  ],
+  "postUpdateOptions": [
+    "helmUpdateSubChartArchives"
+  ],
   "separateMajorMinor": false,
   "packageRules": [
     {
-      "matchDatasources": ["docker"],
+      "matchDatasources": [
+        "docker"
+      ],
       "groupName": "Ironbank",
-      "registryUrls": ["https://registry1.dso.mil"]
+      "registryUrls": [
+        "https://registry1.dso.mil"
+      ]
     },
-    {"matchDatasources": ["helm"], "groupName": "Ironbank"}
+    {
+      "matchDatasources": [
+        "helm"
+      ],
+      "groupName": "Ironbank"
+    }
   ],
   "customManagers": [
     {
       "customType": "regex",
       "description": "Update app version chart annotations",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
       "matchStrings": [
         "- mimir:\\s+'(?<currentValue>.+)'",
         "appVersion:\\s+(?<currentValue>.+)"
@@ -32,15 +58,23 @@
     {
       "customType": "regex",
       "description": "Update docker image references",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
+      ],
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
       "description": "Update chart version to match mimir-distributed",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["version:\\s+(?<currentValue>.+)-bb\\.\\d+"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "version:\\s+(?<currentValue>.+)-bb\\.\\d+"
+      ],
       "autoReplaceStringTemplate": "version: {{newValue}}-bb.0",
       "depNameTemplate": "mimir-distributed",
       "datasourceTemplate": "helm",
@@ -52,6 +86,10 @@
       "regenerate-helm-docs",
       "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
     ],
-    "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
+    "fileFilters": [
+      "chart/Chart.yaml",
+      "README.md",
+      "CHANGELOG.md"
+    ]
   }
 }
