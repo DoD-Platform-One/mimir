@@ -14,10 +14,16 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: prometheus 
+          app: prometheus
       namespaceSelector:
         matchLabels:
           app.kubernetes.io/name: monitoring
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: alloy-metrics
+      namespaceSelector:
+        matchLabels:
+          app.kubernetes.io/name: alloy
     ports:
     - port: 15020
       protocol: TCP

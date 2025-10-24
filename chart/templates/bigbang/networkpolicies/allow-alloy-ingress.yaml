@@ -14,11 +14,10 @@ spec:
   - from:
     - podSelector:
         matchExpressions:
-          - key: app.kubernetes.io/instance
+          - key: app.kubernetes.io/name
             operator: In
             values:
-              - alloy
-              - alloy-alloy-logs
+              - alloy-metrics
       namespaceSelector:
         matchLabels:
           app.kubernetes.io/name: alloy

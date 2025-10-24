@@ -91,7 +91,7 @@ istio:
       namespaces:
         - alloy
       principals:
-        - cluster.local/ns/alloy/sa/alloy-alloy-logs
+        - cluster.local/ns/alloy/sa/alloy-alloy-metrics
     grafana:
       enabled: true
       namespaces:
@@ -179,6 +179,8 @@ upstream:
         backend: filesystem
         filesystem:
           dir: /tmp/mimir/blocks
+      frontend:
+        max_outstanding_per_tenant: 5000
       ruler_storage:
         storage_prefix: ruler
         filesystem:
@@ -191,9 +193,9 @@ upstream:
       # Minimum limits required for Big Bang
         max_label_names_per_series: 40
         max_global_series_per_user: 300000 # Optionally disable by setting to 0
-        out_of_order_time_window: 10s
+        out_of_order_time_window: 1m
         max_global_exemplars_per_user: 100000
-        ingestion_rate: 30000
+        ingestion_rate: 50000
 
   memcached:
     image:
