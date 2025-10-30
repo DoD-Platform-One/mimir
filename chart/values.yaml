@@ -55,7 +55,22 @@ networkPolicies:
   controlPlaneCidr: 0.0.0.0/0
   additionalPolicies: []
 
-  egress: {}
+  egress:
+    from:
+      mimir:
+        to:
+          cidr:
+            0.0.0.0/0:443: true
+          definition:
+            kubeAPI: true
+      rollout-operator:
+        to:
+          definition:
+            kubeAPI: true
+      minio:
+        to:
+          definition:
+            kubeAPI: true
 
 istio:
   # -- Toggle istio configuration

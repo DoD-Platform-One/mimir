@@ -49,10 +49,6 @@ monitoring:
 neuvector:
   enabled: false
 
-loki:
-  minio:
-    enabled: false
-
 addons:
   authservice:
     enabled: true

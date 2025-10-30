@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # mimir
 
-![Version: 5.8.0-bb.2](https://img.shields.io/badge/Version-5.8.0--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.17.1](https://img.shields.io/badge/AppVersion-2.17.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
+![Version: 5.8.0-bb.3](https://img.shields.io/badge/Version-5.8.0--bb.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.17.1](https://img.shields.io/badge/AppVersion-2.17.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
 
 Grafana Mimir
 
@@ -51,9 +51,12 @@ helm install mimir chart/
 | networkPolicies.enabled | bool | `true` | Toggle networkPolicies |
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR, defaults to 0.0.0.0/0, use `kubectl get endpoints -n default kubernetes` to get the CIDR range needed for your cluster Must be an IP CIDR range (x.x.x.x/x - ideally with /32 for the specific IP of a single endpoint, broader range for multiple masters/endpoints) Used by package NetworkPolicies to allow Kube API access |
 | networkPolicies.additionalPolicies | list | `[]` |  |
-| networkPolicies.egress | object | `{}` |  |
+| networkPolicies.egress.from.mimir.to.cidr."0.0.0.0/0:443" | bool | `true` |  |
+| networkPolicies.egress.from.mimir.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.rollout-operator.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.minio.to.definition.kubeAPI | bool | `true` |  |
 | istio.enabled | bool | `false` | Toggle istio configuration |
-| istio.hardened | object | `{"alloy":{"enabled":true,"namespaces":["alloy"],"principals":["cluster.local/ns/alloy/sa/alloy-alloy-logs","cluster.local/ns/alloy/sa/alloy-alloy-metrics"]},"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"grafana":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-grafana"]},"minio":{"enabled":true},"minioOperator":{"enabled":true,"namespaces":["minio-operator"],"principals":["cluster.local/ns/minio-operator/sa/minio-operator"]},"outboundTrafficPolicyMode":"REGISTRY_ONLY","prometheus":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"]}}` | Default peer authentication values |
+| istio.hardened | object | `{"alloy":{"enabled":true,"namespaces":["alloy"],"principals":["cluster.local/ns/alloy/sa/alloy-alloy-metrics"]},"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"grafana":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-grafana"]},"minio":{"enabled":true},"minioOperator":{"enabled":true,"namespaces":["minio-operator"],"principals":["cluster.local/ns/minio-operator/sa/minio-operator"]},"outboundTrafficPolicyMode":"REGISTRY_ONLY","prometheus":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"]}}` | Default peer authentication values |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
 | upgradeJob.enabled | bool | `true` | Enable BigBang specific autoRollingUpgrade support |
 | upgradeJob.name | string | `"mimir-upgrade-job"` |  |
