@@ -3,7 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [5.8.0-bb.3] (2025-10-24)
+## [5.8.0-bb.4] (2025-12-11)
+### Changed
+- Updated the MinIO dependency chart from 7.1.1-bb.8 -> 7.1.1-bb.15
+- Updated the gluon dependency chart from 0.9.5 -> 0.9.7
+- Updated enterprise-metrics from 2.17.0 -> 2.17.3
+- Updated nginx from 1.29.3 -> 1.29.4
+
+    ## [5.8.0-bb.3] (2025-10-24)
 ### Changed
 - Convert NetworkPolicies to bb-common format.
 - Updated gluon to 0.9.5
