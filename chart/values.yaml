@@ -1,48 +1,52 @@
-# -- Configuration for the Big Bang MinIO tenant subchart. See repo https://repo1.dso.mil/big-bang/product/packages/minio for configuring values.yaml
+# -- Big Bang MinIO
+# @default -- Values to pass to [Big Bang MinIO values](https://repo1.dso.mil/big-bang/product/packages/minio/-/blob/main/chart/values.yaml)
 minio-tenant:
-  # -- Enable MinIO instance support, must have minio-operator installed
+  # Enable MinIO instance support, must have minio-operator installed
   enabled: false
   # Allow the address used by Mimir to refer to MinIO to be overridden
   address: "minio.mimir.svc.cluster.local"
-  tenant:
-    # -- MinIO root credentials
-    configSecret:
-      name: "mimir-objstore-creds"
-      accessKey: "minio"
-      secretKey: "minio123" # default key, change this!
-    # -- Buckets to be provisioned to for tenant
-    buckets:
-      - name: mimir
-    # -- Name of the Secret that will contain the defaultUserCredentials generated for Tenant User
-    users:
-      - name: mimir-user-credentials
-    # -- User credentials to create as a secret for above user. Otherwise password is randomly generated.
-    # This auth is not required to be set or reclaimed for minio use with mimir
-    defaultUserCredentials:
-      username: "mimir-user"
-      password: "supersecret"
-    ## Specification for MinIO Pool(s) in this Tenant.
-    pools:
-      - name: pool-0
-        labels:
-          app: minio
-          app.kubernetes.io/name: minio
-        servers: 1
-        volumesPerServer: 4
-        size: 750Mi
-        securityContext:
-          runAsUser: 1001
-          runAsGroup: 1001
-          fsGroup: 1001
-        containerSecurityContext:
-          capabilities:
-            drop:
-              - ALL
+  upstream:
+    tenant:
+      name: "mimir-mimir-minio"
+      # MinIO root credentials
+      policy: readwrite
+      configSecret:
+        name: "mimir-objstore-creds"
+        accessKey: "minio"
+        secretKey: "minio123" # default key, change this!
+      # Buckets to be provisioned to for tenant
+      buckets:
+        - name: mimir
+      # Name of the Secret that will contain the defaultUserCredentials generated for Tenant User
+      users:
+        - name: mimir-user-credentials
+      # User credentials to create as a secret for above user. Otherwise password is randomly generated.
+      # This auth is not required to be set or reclaimed for minio use with mimir
+      defaultUserCredentials:
+        username: "mimir-user"
+        password: "supersecret"
+      ## Specification for MinIO Pool(s) in this Tenant.
+      pools:
+        - name: pool-0
+          labels:
+            app: minio
+            app.kubernetes.io/name: minio
+          servers: 1
+          volumesPerServer: 4
+          size: 750Mi
+          securityContext:
+            runAsUser: 1001
+            runAsGroup: 1001
+            fsGroup: 1001
+          containerSecurityContext:
+            capabilities:
+              drop:
+                - ALL
 
-    metrics:
-      enabled: false
-      port: 9000
-      memory: 128M
+      metrics:
+        enabled: false
+        port: 9000
+        memory: 128M
   waitJob:
     enabled: false
 
@@ -248,13 +252,13 @@ upstream:
     image:
       registry: registry1.dso.mil
       repository: ironbank/opensource/nginx/nginx
-      tag: 1.29.1
+      tag: 1.29.4
 
   enterprise:
     enabled: false
     image:
       repository: registry1.dso.mil/ironbank/opensource/grafana/enterprise-metrics
-      tag: v2.17.0
+      tag: v2.17.3
 
   gateway:
     enabled: true
@@ -263,4 +267,4 @@ upstream:
       image:
         registry: registry1.dso.mil
         repository: ironbank/opensource/nginx/nginx
-        tag: 1.29.1
+        tag: 1.29.4

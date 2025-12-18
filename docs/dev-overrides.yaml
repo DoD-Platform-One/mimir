@@ -57,8 +57,8 @@ addons:
     git:
       tag: null
       branch: renovate/ironbank
-# Toggle testing with Minio S3 Backend
+    # Toggle testing with Minio S3 Backend
     minioObjectStorage:
-      enabled: false
+      enabled: true
   minioOperator:
-    enabled: false
+    enabled: true
