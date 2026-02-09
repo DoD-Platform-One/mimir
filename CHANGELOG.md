@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [5.8.0-bb.5]
+### Added
+- Added VirtualService support via bb-common routes pattern for external Grafana access to Mimir (Issue #91)
+
 ## [5.8.0-bb.4] (2025-12-11)
 ### Changed
 - Updated the MinIO dependency chart from 7.1.1-bb.8 -> 7.1.1-bb.15
