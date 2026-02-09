@@ -137,6 +137,31 @@ istio:
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
 
+# -- Domain for VirtualService hosts (overridden by Big Bang)
+domain: dev.bigbang.mil
+
+# -- Routes configuration for Istio VirtualService
+# Enables external access to Mimir via Istio ingress gateway
+routes:
+  inbound:
+    mimir-gateway:
+      # Enable/disable the VirtualService route
+      enabled: false
+      # Istio gateways to attach to
+      gateways:
+        - istio-gateway/public-ingressgateway
+      # Hostnames for the VirtualService
+      hosts:
+        - mimir.{{ .Values.domain }}
+      # Target Kubernetes service
+      service: "{{ .Release.Name }}-gateway.{{ .Release.Namespace }}.svc.cluster.local"
+      # Target port on the service (must match container port for NetworkPolicy)
+      port: 8080
+      # Pod selector for NetworkPolicy and AuthorizationPolicy
+      selector:
+        app.kubernetes.io/component: gateway
+        app.kubernetes.io/name: mimir
+
 upgradeJob:
   # -- Enable BigBang specific autoRollingUpgrade support
   enabled: true

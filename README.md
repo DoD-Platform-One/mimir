@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # mimir
 
-![Version: 5.8.0-bb.4](https://img.shields.io/badge/Version-5.8.0--bb.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.17.1](https://img.shields.io/badge/AppVersion-2.17.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
+![Version: 5.8.0-bb.5](https://img.shields.io/badge/Version-5.8.0--bb.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.17.1](https://img.shields.io/badge/AppVersion-2.17.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
 
 Grafana Mimir
 
@@ -53,6 +53,8 @@ helm install mimir chart/
 | istio.enabled | bool | `false` | Toggle istio configuration |
 | istio.hardened | object | `{"alloy":{"enabled":true,"namespaces":["alloy"],"principals":["cluster.local/ns/alloy/sa/alloy-alloy-metrics"]},"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"grafana":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-grafana"]},"minio":{"enabled":true},"minioOperator":{"enabled":true,"namespaces":["minio-operator"],"principals":["cluster.local/ns/minio-operator/sa/minio-operator"]},"outboundTrafficPolicyMode":"REGISTRY_ONLY","prometheus":{"enabled":true,"namespaces":["monitoring"],"principals":["cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"]}}` | Default peer authentication values |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| domain | string | `"dev.bigbang.mil"` | Domain for VirtualService hosts (overridden by Big Bang) |
+| routes | object | `{"inbound":{"mimir-gateway":{"enabled":false,"gateways":["istio-gateway/public-ingressgateway"],"hosts":["mimir.{{ .Values.domain }}"],"port":8080,"selector":{"app.kubernetes.io/component":"gateway","app.kubernetes.io/name":"mimir"},"service":"{{ .Release.Name }}-gateway.{{ .Release.Namespace }}.svc.cluster.local"}}}` | Routes configuration for Istio VirtualService Enables external access to Mimir via Istio ingress gateway |
 | upgradeJob.enabled | bool | `true` | Enable BigBang specific autoRollingUpgrade support |
 | upgradeJob.name | string | `"mimir-upgrade-job"` |  |
 | upgradeJob.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | image repository for upgradeJob |
